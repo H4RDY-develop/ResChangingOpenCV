@@ -56,6 +56,6 @@ int main()
 	cout << "Путь к папке с изображениями: ";
 	getline(cin, Def.path);
 	const char* path = Def.path.c_str();
-	Def.Direct(Def.path);
+	Def.Direct(path);
 	
 }
