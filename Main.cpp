@@ -43,10 +43,10 @@ int Direct()
 		{
 			cout << "Well done.";
 			Mat image = imread(NameList);
+			imshow("Original Image", image);
 			int up_width = 600;
 			int up_height = 400;
-			Mat resized_up;
-			resize(image, resized_up, Size(up_width, up_height), INTER_LINEAR);
+			
 		}
 		else {
 			cout << "!";
@@ -57,6 +57,10 @@ int Direct()
 	return 0;
 }
 
+void ChangeRes()
+{
+	
+}
 int main(int argc, char * argv[])
 {
 	cin >> value;
