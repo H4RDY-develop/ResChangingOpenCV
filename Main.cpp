@@ -1,61 +1,65 @@
+#define GetCurrentDir _getcwd
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <string>
+#include <Windows.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <vector>
-
+#include <stdio.h>
+#include <direct.h>
 // Adding libraries | May be extended
 using namespace std;
 using namespace cv;
 
-class Resize
+int value;
+
+void Direct()
 {
-public:
-	int value;
-	string path;
-	
-	void Direct(const char* path)
+	char buff[FILENAME_MAX];
+	GetCurrentDir(buff, FILENAME_MAX);
+	char* current_working_dir(buff);
+	cout << current_working_dir << "\n"; // Findind current working DIR
+
+	struct dirent* entry;
+	DIR* dir = opendir(current_working_dir); // Actual directory
+	vector<string> dirlist; // An array which can increase in size
+
+	if (dir == NULL) {
+		cout << "!";
+		return;
+	}
+	while ((entry = readdir(dir)) != NULL)
 	{
-		struct dirent* entry;
-		DIR* dir = opendir(path);
-		vector<string> dirlist;
-
-		if (dir == NULL) {
-			return;
-		}
-		while ((entry = readdir(dir)) != NULL)
-		{
-			cout << entry->d_name << endl;
-			dirlist.push_back(entry->d_name);
-		}
-
-		string names = dirlist[0, value];
-		if (names.substr(names.find_last_of(".") + 1) == "txt")
-		{
-			cout << "Yes";
-		}
-		closedir(dir);
+		cout << entry->d_name << endl;
+		dirlist.push_back(entry->d_name);
 	}
 
-};
-
-
-void Check()
-{
-	
+	for (int i = 0; i < value; i++)
+	{
+		string NameList = dirlist[i];
+		
+		if (NameList.substr(NameList.find_last_of(".") + 1) == "cpp")
+		{
+			cout << "Well done.";
+		}
+		else {
+			cout << "!";
+		}
+	}
+	cin >> value;
+	closedir(dir);
 }
 
 
 
-int main()
+int main(int argc, char * argv[])
 {
-	Resize Def;
-	cout << "Количество изображений: ";
-	cin >> Def.value;
-	cout << "Путь к папке с изображениями: ";
-	getline(cin, Def.path);
-	const char* path = Def.path.c_str();
-	Def.Direct(path);
+
+	
+	Direct();
+
+
 	
 }
+
