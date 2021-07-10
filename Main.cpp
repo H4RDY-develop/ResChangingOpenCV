@@ -14,7 +14,7 @@ using namespace cv;
 
 int value;
 
-void Direct()
+int Direct()
 {
 	char buff[FILENAME_MAX];
 	GetCurrentDir(buff, FILENAME_MAX);
@@ -27,7 +27,7 @@ void Direct()
 
 	if (dir == NULL) {
 		cout << "!";
-		return;
+		return 0;
 	}
 	while ((entry = readdir(dir)) != NULL)
 	{
@@ -39,9 +39,14 @@ void Direct()
 	{
 		string NameList = dirlist[i];
 		
-		if (NameList.substr(NameList.find_last_of(".") + 1) == "cpp")
+		if (NameList.substr(NameList.find_last_of(".") + 1) == "jpg")
 		{
 			cout << "Well done.";
+			Mat image = imread(NameList);
+			int up_width = 600;
+			int up_height = 400;
+			Mat resized_up;
+			resize(image, resized_up, Size(up_width, up_height), INTER_LINEAR);
 		}
 		else {
 			cout << "!";
@@ -49,14 +54,12 @@ void Direct()
 	}
 	cin >> value;
 	closedir(dir);
+	return 0;
 }
-
-
 
 int main(int argc, char * argv[])
 {
-
-	
+	cin >> value;
 	Direct();
 
 
